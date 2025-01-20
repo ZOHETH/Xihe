@@ -175,7 +175,7 @@ bool PreprocessApp::prepare(Window *window)
 
 	asset_loader_ = std::make_unique<AssetLoader>(*device_);
 
-	textures_.environment_cube = asset_loader_->load_texture_cube(*scene_, "env_cube", "textures/warm_bar.ktx");
+	textures_.environment_cube = asset_loader_->load_texture_cube(*scene_, "env_cube", "textures/concrete.ktx");
 	// textures_.environment_cube = asset_loader_->load_texture_cube(*scene_, "env_cube", "textures/output.ktx2");
 
 	vk::SamplerCreateInfo default_sampler_info;

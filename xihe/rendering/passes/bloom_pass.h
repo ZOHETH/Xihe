@@ -13,16 +13,16 @@ struct alignas(16) CommonUniforms
 
 struct ExtractPush
 {
-	float threshold      = 1.2f;
+	float threshold      = 1.0f;
 	float soft_threshold = 2.0f;
-	float intensity      = 0.1f;
+	float intensity      = 0.5f;
 	float saturation     = 1.0f;
 };
 
 struct CompositePush
 {
-	float bloom_strength = 0.1f;
-	float exposure       = 1.0f;
+	float bloom_strength = 0.2f;
+	float exposure       = 1.5f;
 };
 
 class BloomComputePass : public RenderPass
