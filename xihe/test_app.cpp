@@ -40,11 +40,6 @@ void SparseImagePass::execute(backend::CommandBuffer &command_buffer, rendering:
 	RenderPass::execute(command_buffer, active_frame, input_bindables);
 }
 
-void SparseImagePass::create_sparse_texture_image(backend::Device &device)
-{
-
-}
-
 TestApp::TestApp()
 {
 }

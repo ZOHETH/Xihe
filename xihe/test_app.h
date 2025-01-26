@@ -23,8 +23,6 @@ class SparseImagePass : public rendering::RenderPass
 		glm::vec2 uv;
 	};
 
-	void create_sparse_texture_image(backend::Device &device);
-
 	VirtualTexture virtual_texture_;
 
 	std::unique_ptr<backend::Buffer> vertex_buffer_;
