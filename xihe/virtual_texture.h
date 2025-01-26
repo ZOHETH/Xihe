@@ -3,6 +3,8 @@
 
 namespace xihe
 {
+constexpr uint8_t kPagesPerAlloc = 50U;
+
 struct MipProperties
 {
 	size_t num_rows;
@@ -52,7 +54,7 @@ struct PageInfo
 	uint32_t                   offset = 0U;
 };
 
-struct PageTable
+struct Page
 {
 	bool valid{false};        // bound via queueBindSparse
 
@@ -131,9 +133,9 @@ struct MemSectorCompare
 
 struct VirtualTexture
 {
-	std::unique_ptr<backend::Image>     texture_image;
-	vk::ImageView texture_image_view = VK_NULL_HANDLE;
-	MemAllocInfo  memory_allocations;
+	std::unique_ptr<backend::Image> texture_image;
+	vk::ImageView                   texture_image_view = VK_NULL_HANDLE;
+	MemAllocInfo                    memory_allocations;
 
 	size_t width  = 0U;
 	size_t height = 0U;
@@ -149,7 +151,7 @@ struct VirtualTexture
 
 	std::unique_ptr<sg::Image> raw_data_image;
 
-	std::vector<PageTable> page_tables;
+	std::vector<Page> page_table;
 
 	std::set<TextureBlock> texture_block_update_set;
 
@@ -159,12 +161,19 @@ struct VirtualTexture
 
 	std::vector<vk::SparseImageMemoryBind> sparse_image_memory_binds;
 
+	size_t num_vertical_blocks   = 50U;
+	size_t num_horizontal_blocks = 50U;
+
 	void create_sparse_texture_image(backend::Device &device);
+
+  private:
+	void     reset_mip_table();
+	uint32_t get_mip_level(size_t page_index) const;
 };
 
 struct CalculateMipLevelData
 {
-	std::vector<std::vector<Point>> mesh{0};
+	std::vector<std::vector<Point>>    mesh{0};
 	std::vector<std::vector<MipBlock>> mip_table;
 
 	uint32_t vertical_num_blocks{0U};
